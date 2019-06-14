@@ -1,0 +1,789 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{C310\_example}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k}{using} \PY{n}{FlightMechanics}
+        \PY{k}{using} \PY{n}{FlightMechanics}\PY{o}{.}\PY{n}{Models}
+        \PY{k}{using} \PY{n}{FlightMechanics}\PY{o}{.}\PY{n}{Aircrafts}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c}{\PYZsh{} Initialize Aircraft Model}
+        \PY{n}{ac} \PY{o}{=} \PY{n}{C310}\PY{p}{(}\PY{p}{)}\PY{p}{;}     \PY{c}{\PYZsh{}\PYZsh{} C310\PYZlt{}:Aircrafts}
+        
+        \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{C}\PY{c+cm}{3}\PY{c+cm}{1}\PY{c+cm}{0}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{i}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{f}\PY{c+cm}{t}\PY{c+cm}{)}
+        
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{a}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{\PYZus{}}\PY{c+cm}{p}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{i}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{S}\PY{c+cm}{o}\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{d}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{C}\PY{c+cm}{3}\PY{c+cm}{1}\PY{c+cm}{0}\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{s}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}
+        \PY{c+cm}{=\PYZsh{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{mass\PYZus{}props}
+        
+        \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{i}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{S}\PY{c+cm}{o}\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{)}
+        
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{a}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{g}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{a}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{2}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+        \PY{c+cm}{=\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} RigidSolid(1837.0475999999999, [1.13152, -1.16036e-17, 0.32216], [18022.1 -5.16969e-15 18.1785; -5.16969e-15 2778.09 3.95378e-14; 18.1785 3.95378e-14 20913.9])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{pfm}    \PY{c}{\PYZsh{} PFM for whole aircraft =\PYZgt{} F\PYZus{}gravity + F\PYZus{}aero + F\PYZus{}prop}
+        
+        \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{)}
+        
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{f}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}
+        \PY{c+cm}{=\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{aerodynamics}
+        
+        \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{C}\PY{c+cm}{3}\PY{c+cm}{1}\PY{c+cm}{0}\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{s}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{s}\PY{c+cm}{)}
+        
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{\PYZus{}}\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{x}\PY{c+cm}{i}\PY{c+cm}{s}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{\PYZus{}}\PY{c+cm}{c}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{f}\PY{c+cm}{\PYZus{}}\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{\PYZus{}}\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{x}\PY{c+cm}{i}\PY{c+cm}{s}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{\PYZus{}}\PY{c+cm}{c}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{f}\PY{c+cm}{\PYZus{}}\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}
+        \PY{c+cm}{=\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} C310Aerodynamics(PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0]), PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0]), PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0]), PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0]))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{aerodynamics}\PY{o}{.}\PY{n}{body\PYZus{}coeff\PYZus{}pfm}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}
+        
+        \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{)}
+        
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{j}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{w}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{f}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{c}\PY{c+cm}{y}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{E}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{G}\PY{c+cm}{y}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{c}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{f}\PY{c+cm}{e}\PY{c+cm}{c}\PY{c+cm}{t}\PY{c+cm}{s}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{k}\PY{c+cm}{g}\PY{c+cm}{·}\PY{c+cm}{m}\PY{c+cm}{²}\PY{c+cm}{/}\PY{c+cm}{s}\PY{c+cm}{]}
+        \PY{c+cm}{=\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Propulsion(PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0]), 0, 0, 0, Engine[C310EngineRight(PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0]), 0, 0, 0, RigidSolid[RigidSolid(102.058, [0.889, 5.32892, 0.71882], [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0]), RigidSolid(43.0912, [0.889, 1.05664, 0.29718], [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0])], [0.0, 0.0, 0.0]), C310EngineLeft(PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0]), 0, 0, 0, RigidSolid[RigidSolid(102.058, [0.889, -5.32892, 0.71882], [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0]), RigidSolid(43.0912, [0.889, -1.05664, 0.29718], [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0])], [0.0, 0.0, 0.0])], [0.0, 0.0, 0.0])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}\PY{o}{.}\PY{n}{power}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}\PY{o}{.}\PY{n}{engines}
+        
+        \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{C}\PY{c+cm}{3}\PY{c+cm}{1}\PY{c+cm}{0}\PY{c+cm}{E}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{)}
+        
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{j}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{w}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{f}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{c}\PY{c+cm}{y}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{k}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{R}\PY{c+cm}{i}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{S}\PY{c+cm}{o}\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}
+        \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{k}\PY{c+cm}{g}\PY{c+cm}{·}\PY{c+cm}{m}\PY{c+cm}{²}\PY{c+cm}{/}\PY{c+cm}{s}\PY{c+cm}{]}
+        \PY{c+cm}{=\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 2-element Array\{Engine,1\}:
+         C310EngineRight(PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0]), 0, 0, 0, RigidSolid[RigidSolid(102.058, [0.889, 5.32892, 0.71882], [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0]), RigidSolid(43.0912, [0.889, 1.05664, 0.29718], [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0])], [0.0, 0.0, 0.0]) 
+         C310EngineLeft(PointForcesMoments(Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0], Number[0.0, 0.0, 0.0]), 0, 0, 0, RigidSolid[RigidSolid(102.058, [0.889, -5.32892, 0.71882], [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0]), RigidSolid(43.0912, [0.889, -1.05664, 0.29718], [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0])], [0.0, 0.0, 0.0])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}\PY{o}{.}\PY{n}{engines}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{power}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{typeof}\PY{p}{(}\PY{n}{ac}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} C310
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{get\PYZus{}name}\PY{p}{(}\PY{n}{ac}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} "Cessna 310"
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{get\PYZus{}wing\PYZus{}area}\PY{p}{(}\PY{n}{ac}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 16.258032
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{att} \PY{o}{=} \PY{n}{Attitude}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{180}\PY{o}{*}\PY{n+nb}{pi}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}      \PY{c}{\PYZsh{}\PYZsh{} att(psi, theta, phi)}
+         \PY{n}{pos} \PY{o}{=} \PY{n}{PositionEarth}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1000}\PY{p}{)}    \PY{c}{\PYZsh{}\PYZsh{} pos(x,y,z)}
+         \PY{n}{vel} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{65.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{3.0}\PY{p}{]}              \PY{c}{\PYZsh{}\PYZsh{} vel =\PYZgt{} u ,v, w}
+         \PY{n}{ang\PYZus{}vel} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}              \PY{c}{\PYZsh{}\PYZsh{} ang\PYZus{}vel =\PYZgt{} p, q, r}
+         \PY{n}{accel} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}                \PY{c}{\PYZsh{}\PYZsh{} accel =\PYZgt{} u\PYZus{}dot, v\PYZus{}dot, w\PYZus{}dot}
+         \PY{n}{ang\PYZus{}accel} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{;}            \PY{c}{\PYZsh{}\PYZsh{} ang\PYZus{}accel =\PYZgt{} p\PYZus{}dot, q\PYZus{}dot, r\PYZus{}dot}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{state} \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{att}\PY{p}{,} \PY{n}{vel}\PY{p}{,} \PY{n}{ang\PYZus{}vel}\PY{p}{,} \PY{n}{accel}\PY{p}{,} \PY{n}{ang\PYZus{}accel}\PY{p}{)}     
+         
+         \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{S}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{)}\PY{c+cm}{ }
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{t}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{d}\PY{c+cm}{e}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{c}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{y}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{\PYZus{}}\PY{c+cm}{v}\PY{c+cm}{e}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{c}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{y}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{c}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{l}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{\PYZus{}}\PY{c+cm}{a}\PY{c+cm}{c}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{l}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{=\PYZsh{}}\PY{c}{\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} State(Position([0.0, 0.0, 1000.0], [0, 0, -1000], [6.37914e6, 0.0, 0.0]), Attitude(0.017453292519943295, 0, 0, 0.9999619230641713, 0.0, 0.0, 0.008726535498373935), [65.0, 0.0, 3.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{env} \PY{o}{=} \PY{n}{Environment}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{atmos}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{I}\PY{l+s}{S}\PY{l+s}{A}\PY{l+s}{1}\PY{l+s}{9}\PY{l+s}{7}\PY{l+s}{8}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{wind}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{N}\PY{l+s}{o}\PY{l+s}{W}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{grav}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{t}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{E}\PY{c+cm}{n}\PY{c+cm}{v}\PY{c+cm}{i}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{)}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{t}\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{p}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{W}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{g}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{v}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{G}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{v}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{y}
+         \PY{c+cm}{=\PYZsh{}}\PY{c}{\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} Environment(AtmosphereISA(281.65, 89874.5629162195, 1.111642500306032, 336.43397148578794), ConstantWind(0, 0, 0), EarthConstantGravity([0.0, 0.0, 9.80665]))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{aerostate} \PY{o}{=} \PY{n}{AeroState}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{env}\PY{p}{)}       \PY{c}{\PYZsh{}\PYZsh{} Aerodynamics states}
+         
+         \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{S}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{)}
+         
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{p}\PY{c+cm}{h}\PY{c+cm}{a}\PY{c+cm}{ }\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{A}\PY{c+cm}{O}\PY{c+cm}{A}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{d}\PY{c+cm}{]}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{ }\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{A}\PY{c+cm}{O}\PY{c+cm}{S}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{d}\PY{c+cm}{]}
+         
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{p}\PY{c+cm}{h}\PY{c+cm}{a}\PY{c+cm}{\PYZus{}}\PY{c+cm}{d}\PY{c+cm}{o}\PY{c+cm}{t}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{d}\PY{c+cm}{/}\PY{c+cm}{s}
+         
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{r}\PY{c+cm}{u}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{A}\PY{c+cm}{i}\PY{c+cm}{r}\PY{c+cm}{s}\PY{c+cm}{p}\PY{c+cm}{e}\PY{c+cm}{e}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{m}\PY{c+cm}{/}\PY{c+cm}{s}\PY{c+cm}{]}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{a}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{E}\PY{c+cm}{q}\PY{c+cm}{u}\PY{c+cm}{i}\PY{c+cm}{v}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{ }\PY{c+cm}{A}\PY{c+cm}{i}\PY{c+cm}{r}\PY{c+cm}{s}\PY{c+cm}{p}\PY{c+cm}{e}\PY{c+cm}{e}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{m}\PY{c+cm}{/}\PY{c+cm}{s}\PY{c+cm}{]}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{a}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{b}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{A}\PY{c+cm}{i}\PY{c+cm}{r}\PY{c+cm}{s}\PY{c+cm}{p}\PY{c+cm}{e}\PY{c+cm}{e}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{m}\PY{c+cm}{/}\PY{c+cm}{s}\PY{c+cm}{]}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{a}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{I}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{A}\PY{c+cm}{i}\PY{c+cm}{r}\PY{c+cm}{s}\PY{c+cm}{p}\PY{c+cm}{e}\PY{c+cm}{e}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{m}\PY{c+cm}{/}\PY{c+cm}{s}\PY{c+cm}{]}
+         
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{q}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{f}\PY{c+cm}{ }\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{D}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{ }\PY{c+cm}{P}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{P}\PY{c+cm}{a}\PY{c+cm}{]}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{a}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{ }\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{ }\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{M}\PY{c+cm}{a}\PY{c+cm}{c}\PY{c+cm}{h}\PY{c+cm}{ }\PY{c+cm}{n}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{=\PYZsh{}}\PY{c}{\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} AeroState(0.04612111601451121, 0.0, 0, 65.06919393998976, 61.98547786670575, 62.01791309503223, 65.06919393998976, 2353.3471731478694, 0.19340851238246162)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{fcs} \PY{o}{=} \PY{n}{C310FCS}\PY{p}{(}\PY{p}{)}     \PY{c}{\PYZsh{}\PYZsh{} ranges for controls for C310 aircraft}
+         
+         \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{C}\PY{c+cm}{3}\PY{c+cm}{1}\PY{c+cm}{0}\PY{c+cm}{F}\PY{c+cm}{C}\PY{c+cm}{S}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{F}\PY{c+cm}{C}\PY{c+cm}{S}\PY{c+cm}{)}
+         
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{a}\PY{c+cm}{b}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}\PY{c+cm}{s}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{k}\PY{c+cm}{\PYZus{}}\PY{c+cm}{l}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{d}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{C}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{k}\PY{c+cm}{\PYZus{}}\PY{c+cm}{l}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{C}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{e}\PY{c+cm}{d}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{C}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{h}\PY{c+cm}{r}\PY{c+cm}{u}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{1}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{C}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{h}\PY{c+cm}{r}\PY{c+cm}{u}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{2}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{C}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}
+         
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{ }\PY{c+cm}{s}\PY{c+cm}{u}\PY{c+cm}{r}\PY{c+cm}{f}\PY{c+cm}{a}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{e}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{C}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{a}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{C}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{d}\PY{c+cm}{r}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{C}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{E}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{e}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{1}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{C}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{2}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{e}\PY{c+cm}{C}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{l}
+         \PY{c+cm}{=\PYZsh{}}\PY{c}{\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} C310FCS(RangeControl(0.0, Number[0, 1]), RangeControl(0.0, Number[0, 1]), RangeControl(0.0, Number[0, 1]), RangeControl(0.0, Number[0, 1]), RangeControl(0.0, Number[0, 1]), RangeControl(0.0, Number[-0.436332, 0.610865]), RangeControl(0.0, Number[-0.314159, 0.244346]), RangeControl(0.0, Number[-0.471239, 0.471239]), RangeControl(0.0, Number[0.0, 1.0]), RangeControl(0.0, Number[0.0, 1.0]))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{fcs}\PY{o}{.}\PY{n}{de}       \PY{c}{\PYZsh{} elevator current value and range}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} RangeControl(0.0, Number[-0.436332, 0.610865])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c}{\PYZsh{}\PYZsh{} sets controls to desired value}
+         \PY{n}{set\PYZus{}stick\PYZus{}lon}\PY{p}{(}\PY{n}{fcs}\PY{p}{,} \PY{l+m+mf}{0.43}\PY{p}{)}
+         \PY{n}{set\PYZus{}stick\PYZus{}lat}\PY{p}{(}\PY{n}{fcs}\PY{p}{,} \PY{l+m+mf}{0.562}\PY{p}{)}
+         \PY{n}{set\PYZus{}pedals}\PY{p}{(}\PY{n}{fcs}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{set\PYZus{}thtl}\PY{p}{(}\PY{n}{fcs}\PY{p}{,} \PY{l+m+mf}{0.68}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{println}\PY{p}{(}\PY{n}{fcs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C310FCS(RangeControl(0.43, Number[0, 1]), RangeControl(0.562, Number[0, 1]), RangeControl(0.5, Number[0, 1]), RangeControl(0.68, Number[0, 1]), RangeControl(0.68, Number[0, 1]), RangeControl(0.0139626340159546, Number[-0.436332, 0.610865]), RangeControl(-0.00027925268031903094, Number[-0.314159, 0.244346]), RangeControl(0.0, Number[-0.471239, 0.471239]), RangeControl(0.68, Number[0.0, 1.0]), RangeControl(0.68, Number[0.0, 1.0]))
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{grav} \PY{o}{=} \PY{n}{get\PYZus{}gravity}\PY{p}{(}\PY{n}{env}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{ac} \PY{o}{=} \PY{n}{calculate\PYZus{}aircraft}\PY{p}{(}\PY{n}{ac}\PY{p}{,} \PY{n}{fcs}\PY{p}{,} \PY{n}{aerostate}\PY{p}{,} \PY{n}{state}\PY{p}{,} \PY{n}{grav}\PY{p}{;} \PY{n}{consume\PYZus{}fuel}\PY{o}{=}\PY{k+kc}{false}\PY{p}{)}\PY{p}{;}
+         
+         \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{a}\PY{c+cm}{l}\PY{c+cm}{c}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{a}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{ }
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZhy{}}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{a}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{\PYZus{}}\PY{c+cm}{p}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{i}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{S}\PY{c+cm}{o}\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{,}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{R}\PY{c+cm}{i}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{S}\PY{c+cm}{o}\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{=}\PY{c+cm}{\PYZgt{}}\PY{c+cm}{ }
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{R}\PY{c+cm}{i}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{S}\PY{c+cm}{o}\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{)}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{a}\PY{c+cm}{s}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{g}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{a}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{2}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZhy{}}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{=}\PY{c+cm}{\PYZgt{}}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{)}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{f}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZhy{}}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{C}\PY{c+cm}{3}\PY{c+cm}{1}\PY{c+cm}{0}\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{s}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{=}\PY{c+cm}{\PYZgt{}}\PY{c+cm}{ }
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{C}\PY{c+cm}{3}\PY{c+cm}{1}\PY{c+cm}{0}\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{s}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{s}\PY{c+cm}{)}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{\PYZus{}}\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{x}\PY{c+cm}{i}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{s}\PY{c+cm}{y}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{m}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{d}\PY{c+cm}{\PYZus{}}\PY{c+cm}{c}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{f}\PY{c+cm}{\PYZus{}}\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{\PYZus{}}\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{x}\PY{c+cm}{i}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{s}\PY{c+cm}{y}\PY{c+cm}{s}\PY{c+cm}{t}\PY{c+cm}{e}\PY{c+cm}{m}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{b}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{\PYZus{}}\PY{c+cm}{c}\PY{c+cm}{o}\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{f}\PY{c+cm}{\PYZus{}}\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZhy{}}\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{P}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{ }\PY{c+cm}{=}\PY{c+cm}{\PYZgt{}}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{s}\PY{c+cm}{i}\PY{c+cm}{o}\PY{c+cm}{n}\PY{c+cm}{)}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{j}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{w}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{f}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{c}\PY{c+cm}{y}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{E}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{C}\PY{c+cm}{3}\PY{c+cm}{1}\PY{c+cm}{0}\PY{c+cm}{E}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{L}\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{t}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{C}\PY{c+cm}{3}\PY{c+cm}{1}\PY{c+cm}{0}\PY{c+cm}{E}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{e}\PY{c+cm}{)}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{f}\PY{c+cm}{m}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{c}\PY{c+cm}{j}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{w}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{f}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{c}\PY{c+cm}{y}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{k}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{R}\PY{c+cm}{i}\PY{c+cm}{g}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{S}\PY{c+cm}{o}\PY{c+cm}{l}\PY{c+cm}{i}\PY{c+cm}{d}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{k}\PY{c+cm}{g}\PY{c+cm}{·}\PY{c+cm}{m}\PY{c+cm}{²}\PY{c+cm}{/}\PY{c+cm}{s}\PY{c+cm}{]}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{G}\PY{c+cm}{y}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{s}\PY{c+cm}{c}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{ }\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{f}\PY{c+cm}{e}\PY{c+cm}{c}\PY{c+cm}{t}\PY{c+cm}{s}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{h}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{T}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{w}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{T}\PY{c+cm}{\PYZlt{}}\PY{c+cm}{:}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{\PYZsh{}}\PY{c+cm}{ }\PY{c+cm}{a}\PY{c+cm}{n}\PY{c+cm}{g}\PY{c+cm}{u}\PY{c+cm}{l}\PY{c+cm}{a}\PY{c+cm}{r}\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{ }\PY{c+cm}{[}\PY{c+cm}{k}\PY{c+cm}{g}\PY{c+cm}{·}\PY{c+cm}{m}\PY{c+cm}{²}\PY{c+cm}{/}\PY{c+cm}{s}\PY{c+cm}{]}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{p}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{t}\PY{c+cm}{i}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{ }\PY{c+cm}{o}\PY{c+cm}{f}\PY{c+cm}{ }\PY{c+cm}{t}\PY{c+cm}{h}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{i}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{f}\PY{c+cm}{t}\PY{c+cm}{)}
+         \PY{c+cm}{=\PYZsh{}}\PY{c}{\PYZsh{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{mass\PYZus{}props}\PY{o}{.}\PY{n}{mass}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} 1837.0475999999999
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{mass\PYZus{}props}\PY{o}{.}\PY{n}{cg}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} 3-element Array\{Float64,1\}:
+           1.131522962962963     
+          -1.1603554569191896e-17
+           0.3221598024691358    
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{mass\PYZus{}props}\PY{o}{.}\PY{n}{inertia}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} 3×3 Array\{Float64,2\}:
+          18022.1            -5.16969e-15     18.1785     
+             -5.16969e-15  2778.09             3.95378e-14
+             18.1785          3.95378e-14  20913.9        
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{pfm}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} PointForcesMoments(Number[1.13152, -1.16036e-17, 0.32216], Number[2003.91, 0.0, -383.495], Number[-20.5154, 593.622, 1.05222])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{pfm}\PY{o}{.}\PY{n}{forces}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} 3-element Array\{Number,1\}:
+          2003.9060443475582 
+             0.0             
+          -383.49516477084035
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{aerodynamics}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} C310Aerodynamics(PointForcesMoments(Number[1.1684, 0.0, 0.21844], Number[-1882.49, 0.0, -18331.5], Number[-20.445, -409.679, 1.99696]), PointForcesMoments(Number[1.1684, 0.0, 0.21844], Number[-0.0492014, 0.0, -0.479119], Number[-4.80315e-5, -0.00716934, 4.69145e-6]), PointForcesMoments(Number[1.1684, 0.0, 0.21844], Number[-1035.31, 0.0, -18398.8], Number[-20.5154, -409.679, 1.05222]), PointForcesMoments(Number[1.1684, 0.0, 0.21844], Number[-0.0270594, 0.0, -0.480878], Number[-4.81967e-5, -0.00716934, 2.47198e-6]))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{aerodynamics}\PY{o}{.}\PY{n}{body\PYZus{}coeff\PYZus{}pfm}
+         
+         \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{)}
+         
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=}\PY{c+cm}{\PYZgt{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{ }\PY{c+cm}{R}\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{f}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=}\PY{c+cm}{\PYZgt{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{X}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{Y}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{Z}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=}\PY{c+cm}{\PYZgt{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{l}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{m}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{n}
+         \PY{c+cm}{=\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} PointForcesMoments(Number[1.1684, 0.0, 0.21844], Number[-0.0270594, 0.0, -0.480878], Number[-4.81967e-5, -0.00716934, 2.47198e-6])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{ac}\PY{o}{.}\PY{n}{aerodynamics}\PY{o}{.}\PY{n}{wind\PYZus{}coeff\PYZus{}pfm}
+         
+         \PY{c+cm}{\PYZsh{}=}\PY{c+cm}{(}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{F}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{M}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{)}
+         
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{p}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=}\PY{c+cm}{\PYZgt{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{A}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{o}\PY{c+cm}{d}\PY{c+cm}{y}\PY{c+cm}{n}\PY{c+cm}{a}\PY{c+cm}{m}\PY{c+cm}{i}\PY{c+cm}{c}\PY{c+cm}{ }\PY{c+cm}{R}\PY{c+cm}{e}\PY{c+cm}{f}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{ }\PY{c+cm}{P}\PY{c+cm}{o}\PY{c+cm}{i}\PY{c+cm}{n}\PY{c+cm}{t}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{f}\PY{c+cm}{o}\PY{c+cm}{r}\PY{c+cm}{c}\PY{c+cm}{e}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=}\PY{c+cm}{\PYZgt{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{D}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{Y}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{L}
+         \PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{m}\PY{c+cm}{o}\PY{c+cm}{m}\PY{c+cm}{e}\PY{c+cm}{n}\PY{c+cm}{t}\PY{c+cm}{s}\PY{c+cm}{:}\PY{c+cm}{:}\PY{c+cm}{A}\PY{c+cm}{r}\PY{c+cm}{r}\PY{c+cm}{a}\PY{c+cm}{y}\PY{c+cm}{\PYZob{}}\PY{c+cm}{N}\PY{c+cm}{u}\PY{c+cm}{m}\PY{c+cm}{b}\PY{c+cm}{e}\PY{c+cm}{r}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{1}\PY{c+cm}{\PYZcb{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{=}\PY{c+cm}{\PYZgt{}}\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{l}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{m}\PY{c+cm}{,}\PY{c+cm}{ }\PY{c+cm}{C}\PY{c+cm}{n}
+         \PY{c+cm}{=\PYZsh{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} PointForcesMoments(Number[1.1684, 0.0, 0.21844], Number[-0.0492014, 0.0, -0.479119], Number[-4.80315e-5, -0.00716934, 4.69145e-6])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{f}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{1}\PY{l+s}{ }\PY{l+s}{:}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{p}\PY{l+s}{f}\PY{l+s}{m}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}\PY{o}{.}\PY{n}{engines}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{pfm}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{c}\PY{l+s}{j}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}\PY{o}{.}\PY{n}{engines}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{cj}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{w}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}\PY{o}{.}\PY{n}{engines}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{power}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{e}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{c}\PY{l+s}{i}\PY{l+s}{e}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{y}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}\PY{o}{.}\PY{n}{engines}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{efficiency}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{k}\PY{l+s}{\PYZus{}}\PY{l+s}{1}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}\PY{o}{.}\PY{n}{engines}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{tanks}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{n}\PY{l+s}{k}\PY{l+s}{\PYZus{}}\PY{l+s}{2}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}\PY{o}{.}\PY{n}{engines}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{tanks}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{h}\PY{l+s}{ }\PY{l+s}{=}\PY{l+s}{ }\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{ac}\PY{o}{.}\PY{n}{propulsion}\PY{o}{.}\PY{n}{engines}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{h}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+for engine 1 : 
+pfm = PointForcesMoments(Number[-0.6985, 1.778, 0.3937], Number[1519.61, 0.0, 0.0], Number[0, 0, 0])
+cj = 0.0
+power = 131839.76
+efficiency = 0.75
+tank\_1 = RigidSolid(102.0582, [0.889, 5.32892, 0.71882], [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0])
+tank\_2 = RigidSolid(43.09124, [0.889, 1.05664, 0.29718], [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0])
+h = [0.0, 0.0, 0.0]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c}{\PYZsh{} trim}
+         \PY{n}{tas} \PY{o}{=} \PY{l+m+mi}{50}    \PY{c}{\PYZsh{} m/sec}
+         \PY{n}{h} \PY{o}{=} \PY{l+m+mi}{300}     \PY{c}{\PYZsh{} m}
+         \PY{n}{psi} \PY{o}{=} \PY{n+nb}{pi}\PY{o}{/}\PY{l+m+mi}{3}  \PY{c}{\PYZsh{} rad}
+         \PY{n}{gamma} \PY{o}{=} \PY{l+m+mi}{5} \PY{o}{*} \PY{n}{DEG2RAD}
+         \PY{n}{turn\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.0}
+         \PY{n}{α0} \PY{o}{=} \PY{l+m+mf}{5.0}\PY{o}{*}\PY{n}{DEG2RAD}    \PY{c}{\PYZsh{} initial AOA}
+         \PY{n}{β0} \PY{o}{=} \PY{l+m+mf}{0.0}\PY{o}{*}\PY{n}{DEG2RAD}    \PY{c}{\PYZsh{} initial AOS}
+         \PY{n}{ac2}\PY{p}{,} \PY{n}{aerostate2}\PY{p}{,} \PY{n}{state2}\PY{p}{,} \PY{n}{fcs2} \PY{o}{=} \PY{n}{steady\PYZus{}state\PYZus{}trim}\PY{p}{(}\PY{n}{ac}\PY{p}{,} \PY{n}{fcs}\PY{p}{,} \PY{n}{env}\PY{p}{,} \PY{n}{tas}\PY{p}{,} \PY{n}{pos}\PY{p}{,} \PY{n}{psi}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{turn\PYZus{}rate}\PY{p}{,} \PY{n}{α0}\PY{p}{,} \PY{n}{β0}\PY{p}{)}\PY{p}{;}
+         \PY{c}{\PYZsh{} ac2         = trimmed aircraft model}
+         \PY{c}{\PYZsh{} aerostate2 = trimmed aerodynamics states}
+         \PY{c}{\PYZsh{} state2     = trimmed values of state}
+         \PY{c}{\PYZsh{} fcs2       = trimmed values of controls}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{aerostate2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} AeroState(0.10842691301621488, 2.7100968614964776e-15, 0, 50, 47.63043316924444, 47.64520837399711, 50, 1389.55312538254, 0.14861757205785672)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{state2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} State(Position([0.0, 0.0, 1000.0], [0, 0, -1000], [6.37914e6, 0.0, 0.0]), Attitude(1.0471975511965976, 0.19569337561593134, 0.0, 0.8618830577739667, -0.04884531612549089, 0.08460256924111362, 0.4976084154157773), [49.7064, 1.35505e-13, 5.41073], [-0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{fcs2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} C310FCS(RangeControl(0.41237944761033185, Number[0, 1]), RangeControl(0.5624999999999251, Number[0, 1]), RangeControl(0.49999999999996914, Number[0, 1]), RangeControl(0.6137216538703006, Number[0, 1]), RangeControl(0.6137216538703006, Number[0, 1]), RangeControl(-0.0044895652972372635, Number[-0.436332, 0.610865]), RangeControl(-4.18554080283684e-14, Number[-0.314159, 0.244346]), RangeControl(-2.90878432451791e-14, Number[-0.471239, 0.471239]), RangeControl(0.6137216538703006, Number[0.0, 1.0]), RangeControl(0.6137216538703006, Number[0.0, 1.0]))
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
